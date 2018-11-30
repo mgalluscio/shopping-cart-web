@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible text-center">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+<h1>Our Favorites:</h1>
+{% for product in products %}
+    <div class="col-md-2 column product-box">
+        <img src="{{product.product_image.url}}" class="product-image">
+        <div class="product-title">{{product.product_name}}</div>
+        <div class="product-price"></div>
+        <div class="under-title">
+            <div class="price-text">{{product.product_price|floatformat:2}}</div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary btn-xs add-to-cart">Add to Cart</a>
+            {% else %}
+            <button type="button" class="btn btn-primary btn-xs add-to-cart" disabled>Add to Cart</a>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
