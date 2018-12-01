@@ -1,5 +1,7 @@
 # shopping-cart-web
 
+Description: Todo
+
 ## How to run:
 
 1) Clone repository
