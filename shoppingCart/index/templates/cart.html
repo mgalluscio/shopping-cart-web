@@ -1,6 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info alert-dismissible text-center">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
 <div class="well">
     <h1>Cart</h1>
     <div class="table-responsive">
@@ -17,7 +25,7 @@
                 <tr>
                     <td>{{ item.product_id.product_name }}</td>
                     <td>{{ item.product_id.product_price|floatformat:2 }}</td>
-                    <td><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <td><a href="{% url 'remove' item.id %}"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -30,7 +38,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>$215.00</td>
+                    <td>Todo</td>
                 </tr>
             </tbody>
         </table>

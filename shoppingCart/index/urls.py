@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^logout_user/$', views.LogoutUserView.as_view(), name='logout_user'),
     url(r'^add_to_cart/(?P<item_id>[-\w]+)/$', views.AddToCart, name='add_to_cart'),
     url(r'^cart/$', views.CartView.as_view(), name='cart'),
+    url(r'^cart/remove/(?P<item_id>[-\w]+)/$', views.RemoveCartItem, name='remove'),
 ]

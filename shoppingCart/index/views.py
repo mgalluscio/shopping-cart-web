@@ -77,6 +77,7 @@ class CartView(View):
     
     def get(self, request):
         cart_items = Order_Items.objects.filter(order_id__customer_id = request.user)
+        #cart_total = sum([cart_items.product_id.product_price for product in cart_items])
         context = {
             'cart_items': cart_items
         }
@@ -97,3 +98,11 @@ def AddToCart(request, **kwargs):
         order_item.save()
     messages.success(request, 'Item added to cart!')
     return redirect('index')
+
+@login_required
+def RemoveCartItem(request, **kwargs):
+    product = Order_Items.objects.filter(id=kwargs.get('item_id', ""))
+    if product.exists():
+        product.delete()
+        messages.info(request, 'Your item has been removed from the cart.')
+    return redirect('cart')
