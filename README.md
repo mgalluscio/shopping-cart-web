@@ -1,4 +1,4 @@
-# shopping-cart-web
+# Shopping Cart App
 
 Description: Todo
 
