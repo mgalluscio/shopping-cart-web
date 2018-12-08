@@ -1,6 +1,6 @@
 # Shopping Cart App
 
-Description: Todo
+Simple Django shopping cart application.
 
 ## How to run:
 
