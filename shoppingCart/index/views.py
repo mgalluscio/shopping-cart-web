@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
-from .models import Products, Customers, Orders, Order_Items
+from .models import Products, Orders, Order_Items
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from .forms import UserForm, LoginForm
@@ -77,9 +77,12 @@ class CartView(View):
     
     def get(self, request):
         cart_items = Order_Items.objects.filter(order_id__customer_id = request.user)
-        #cart_total = sum([cart_items.product_id.product_price for product in cart_items])
+        cart_total = 0
+        for product in cart_items:
+            cart_total += product.product_id.product_price
         context = {
-            'cart_items': cart_items
+            'cart_items': cart_items,
+            'cart_total': cart_total
         }
         return render(request, self.template_name, context=context)
 
@@ -90,7 +93,7 @@ def AddToCart(request, **kwargs):
     #print(customer.id)
     product = Products.objects.filter(id=kwargs.get('item_id', "")).first()
     #print(product)
-    user_order, status = Orders.objects.get_or_create(customer_id=customer, is_ordered=False)
+    user_order, status = Orders.objects.get_or_create(customer_id=customer)
     order_item = Order_Items.objects.create(product_id=product, order_id=user_order)
     if status:
         #print(user_order)

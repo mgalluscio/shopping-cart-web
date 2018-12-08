@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from .models import Customers
 from django import forms 
 
 
